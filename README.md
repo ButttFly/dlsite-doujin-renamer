@@ -18,13 +18,13 @@
   "scraper_sleep_interval": 3,
   "scraper_http_proxy": null,
   "renamer_template": "[maker_name][rjcode] work_name cv_list_str",
+  "renamer_multiCV_spliter": "&",
   "renamer_exclude_square_brackets_in_work_name_flag": false
 }
 ```
 - ```scaner_max_depth``` 扫描器的扫描深度
 - ```scraper_locale``` 刮削器的刮削元数据的语言（```["en_us", "ja_jp", "ko_kr", "zh_cn", "zh_tw"]``` 中的一个）
 - ```scraper_connect_timeout``` 刮削器的 [requests 连接超时](https://docs.python-requests.org/zh_CN/latest/user/advanced.html#timeout)时间（秒）
-- ```scraper_connect_timeout``` 刮削器的 [requests 读取超时](https://docs.python-requests.org/zh_CN/latest/user/advanced.html#timeout)时间（秒）
 - ``scraper_sleep_interval`` 刮削器的请求网页的时间间隔（秒）
 - ```scraper_http_proxy``` 刮削器的使用的代理（http代理），此项设置为 ```null``` 时，将尝试使用系统代理
 - ```renamer_template``` 命名器的命名模板，命名器将替换模板中的关键字：
@@ -38,6 +38,8 @@
   例如：```"renamer_template": "[maker_name] work_name (rjcode)"```<br/>
   重命名前：```RJ149268 哀しみのイき人形```<br/>
   重命名后：```[Hypnotic_Yanh] 哀しみのイき人形《催眠音声・男女版同梱》 (RJ149268)```
+
+- ```renamer_multiCV_spliter``` 同人作品多声优间分隔符
 - ```renamer_exclude_square_brackets_in_work_name_flag``` 命名器的 ```work_name``` 中是否排除 ```【】``` 及其间的内容。例如：
   - ```"renamer_exclude_square_brackets_in_work_name_flag": true```<br/>
     ```work_name = "道草屋 なつな2 隣の部屋のたぬきさん。"```

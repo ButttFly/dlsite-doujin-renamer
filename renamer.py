@@ -48,6 +48,7 @@ class Renamer(object):
             scaner: Scaner,
             scraper: Scraper,
             template: str = '[maker_name][rjcode] work_name cv_list_str',  # 模板
+            multiCV_spliter: str = '&',
             exclude_square_brackets_in_work_name_flag: bool = False,  # 设为 True 时，移除 work_name 中【】及其间的内容
     ):
         if 'rjcode' not in template:
@@ -55,6 +56,7 @@ class Renamer(object):
         self.__scaner = scaner
         self.__scraper = scraper
         self.__template = template
+        self.__multiCV_spliter = multiCV_spliter
         self.__exclude_square_brackets_in_work_name_flag = exclude_square_brackets_in_work_name_flag
 
     def __compile_new_name(self, metadata: WorkMetadata):
@@ -73,7 +75,7 @@ class Renamer(object):
         new_name = new_name.replace('release_date', metadata['release_date'])
 
         cv_list = metadata['cvs']
-        cv_list_str = '(' + ' '.join(cv_list) + ')' if len(cv_list) > 0 else ''
+        cv_list_str = '{}'.format(self.__multiCV_spliter).join(cv_list) if len(cv_list) > 0 else ''
         new_name = new_name.replace('cv_list_str', cv_list_str)
 
         # 文件名中不能包含 Windows 系统的保留字符

@@ -14,6 +14,7 @@ class Config(TypedDict):
     scraper_sleep_interval: int
     scraper_http_proxy: Optional[str]
     renamer_template: str
+    renamer_multiCV_spliter: str
     renamer_exclude_square_brackets_in_work_name_flag: bool
 
 
@@ -26,7 +27,8 @@ class ConfigFile(object):
         'scraper_sleep_interval': 3,
         'scraper_http_proxy': None,
         'renamer_template': '[maker_name][rjcode] work_name cv_list_str',
-        'renamer_exclude_square_brackets_in_work_name_flag': False,
+        'renamer_multiCV_spliter': '&',
+        'renamer_exclude_square_brackets_in_work_name_flag': False
     }
 
     def __init__(self, file_path: str):
@@ -65,6 +67,7 @@ class ConfigFile(object):
         scraper_http_proxy = config_dict.get('scraper_http_proxy', None)
         scraper_sleep_interval = config_dict.get('scraper_sleep_interval', None)
         renamer_template = config_dict.get('renamer_template', None)
+        renamer_multiCV_spliter = config_dict.get('renamer_multiCV_spliter', None)
         renamer_exclude_square_brackets_in_work_name_flag = \
             config_dict.get('renamer_exclude_square_brackets_in_work_name_flag', None)
 
@@ -107,6 +110,10 @@ class ConfigFile(object):
         # 检查 renamer_template
         if not isinstance(renamer_template, str) or 'rjcode' not in renamer_template:
             strerror_list.append('renamer_template 应是一个包含 "rjcode" 的字符串')
+
+        # 检查 renamer_multiCV_spliter
+        if not isinstance(renamer_multiCV_spliter, str):
+            strerror_list.append('renamer_multiCV_spliter 应是一个类似于 "&" 的字符串作为多CV间的分隔符，windows下不可使用包含\"\\/*?:"<>|]\"的字符')
 
         # 检查 renamer_exclude_square_brackets_in_work_name_flag
         if not isinstance(renamer_exclude_square_brackets_in_work_name_flag, bool):
